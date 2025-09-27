@@ -1,0 +1,26 @@
+{
+    "name": "cavatappi/testing",
+    "description": "Test utilities for Cavatappi projects",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Evan Hildreth",
+            "email": "me@eph.me"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Cavatappi\\Test\\": "src/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^12",
+        "cavatappi/infrastructure": "^0.1"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "./vendor/squizlabs/php_codesniffer/bin/phpcs",
+        "lintfix": "./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+    }
+}
