@@ -2,7 +2,7 @@
 
 namespace Cavatappi\Test;
 
-use Cavatappi\Foundation\Value\Messages\DomainEvent;
+use Cavatappi\Foundation\DomainEvent\DomainEvent;
 use Cavatappi\Test\Constraints\DomainEventChecker;
 use Crell\Tukio\Dispatcher;
 use PHPUnit\Framework\MockObject\MockObject;
