@@ -5,8 +5,11 @@ namespace Cavatappi\Test\BasicApp;
 use Cavatappi\Foundation\Command\Command;
 use Cavatappi\Foundation\Command\CommandBus;
 use Cavatappi\Foundation\Module\ModuleUtils;
+use Cavatappi\Foundation\Value;
 use Cavatappi\Infrastructure\AppKit;
 use Cavatappi\Infrastructure\Registries\ServiceRegistry;
+use Cavatappi\Infrastructure\Serialization\SerializationService;
+use Cavatappi\Test\TestCase;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -51,7 +54,7 @@ class App {
 	public function execute(Command $command): mixed {
 		// TODO: Serialize and deserialize the Command to ensure that it will successfully translate.
 		// Future systems may send Commands to other services.
-		$retval = $this->container->get(CommandBus::class)->execute($command);
+		$retval = $this->container->get(CommandBus::class)->execute($this->roundTripSerialize($command));
 		$this->container->get(TestJobManager::class)->run();
 		return $retval;
 	}
@@ -67,8 +70,31 @@ class App {
 		// TODO: Serialize and deserialize the DomainEvent to ensure that it will successfully translate.
 		// Future systems may send DomainEvents to other services.
 
-		$retval = $this->container->get(EventDispatcherInterface::class)->dispatch($event);
+		$retval = $this->container->get(EventDispatcherInterface::class)->dispatch($this->roundTripSerialize($event));
 		$this->container->get(TestJobManager::class)->run();
 		return $retval;
+	}
+
+	/**
+	 * Serialize and deserialize the object.
+	 * 
+	 * @template T
+	 *
+	 * @param T $object Object to process.
+	 * @return T
+	 */
+	public function roundTripSerialize(Value $object, bool $skipAssertion = false): Value {
+		$serde = $this->container->get(SerializationService::class);
+		$processed = $serde->fromJson($serde->toJson($object), as: get_class($object));
+
+		if (!$skipAssertion) {
+			TestCase::assertValueObjectEquals(
+				$object,
+				$processed,
+				'Object of type ' . get_class($object) . 'changed during serialization'
+			);
+		}
+
+		return $processed;
 	}
 }

@@ -8,6 +8,8 @@ use Cavatappi\Foundation\Module;
 use Cavatappi\Foundation\Module\ModuleKit;
 use Cavatappi\Infrastructure\Registries\CommandHandlerRegistry;
 use Cavatappi\Infrastructure\Registries\EventListenerRegistry;
+use Cavatappi\Infrastructure\Serialization\SerializationService;
+use Cavatappi\Infrastructure\Serialization\TypeRegistryRegistry;
 use Cavatappi\Test\BasicApp\TestJobManager;
 use Crell\Tukio\Dispatcher;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -23,6 +25,8 @@ class Model implements Module {
 		return [
 			CommandHandlerRegistry::class,
 			EventListenerRegistry::class,
+			SerializationService::class,
+			TypeRegistryRegistry::class,
 			TestJobManager::class,
 		];
 	}

@@ -16,7 +16,7 @@
     },
     "require": {
         "phpunit/phpunit": "^12",
-        "cavatappi/infrastructure": "^0.1.2"
+        "cavatappi/infrastructure": "^0.2"
     },
     "scripts": {
         "test": "phpunit",

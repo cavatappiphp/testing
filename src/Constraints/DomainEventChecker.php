@@ -65,7 +65,7 @@ class DomainEventChecker extends Constraint {
 			$expectedComparison = $expectedComparison->with(processId: $this->processId);
 		}
 
-		return $expectedComparison == $actualComparison;
+		return $expectedComparison->equals($actualComparison);
 	}
 
 	protected function fail(mixed $other, string $description, ?ComparisonFailure $comparisonFailure = null): never {
@@ -79,8 +79,8 @@ class DomainEventChecker extends Constraint {
 			$comparisonFailure = new ComparisonFailure(
 				$this->expected,
 				$other,
-				Exporter::export($expectedComparison),
-				Exporter::export($actualComparison),
+				Exporter::export(ValueObjectChecker::exportValue($expectedComparison)),
+				Exporter::export(ValueObjectChecker::exportValue($actualComparison)),
 				isset($this->expected) ? 'Failed asserting that two Events are equivalent.' : 'Event was not expected.'
 			);
 		}
