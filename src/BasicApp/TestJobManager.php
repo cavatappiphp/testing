@@ -20,8 +20,7 @@ final class TestJobManager implements JobManager {
 	/**
 	 * @param ContainerInterface $container Stores services used by Jobs.
 	 */
-	public function __construct(private ContainerInterface $container) {
-	}
+	public function __construct(private ContainerInterface $container) {}
 
 	/**
 	 * Set a Job for later processing.
@@ -44,7 +43,7 @@ final class TestJobManager implements JobManager {
 		if (isset($job)) {
 			\call_user_func(
 				[$this->container->get($job->service), $job->method],
-				...$job->getParameters()
+				...$job->getParameters(),
 			);
 			$this->run();
 		}

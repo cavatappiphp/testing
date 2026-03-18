@@ -16,8 +16,7 @@ class ValueObjectChecker extends Constraint {
 	/**
 	 * @param Value $expected Events to check against.
 	 */
-	public function __construct(private Value $expected) {
-	}
+	public function __construct(private Value $expected) {}
 
 	public function toString(): string {
 		return 'two Value objects are equal';
@@ -42,7 +41,7 @@ class ValueObjectChecker extends Constraint {
 				$other,
 				Exporter::export($this->exportValue($this->expected)),
 				Exporter::export($this->exportValue($other)),
-				'Failed asserting that two Value objects are equal.'
+				'Failed asserting that two Value objects are equal.',
 			);
 		}
 
@@ -55,7 +54,7 @@ class ValueObjectChecker extends Constraint {
 	}
 
 	private static function exportValueProp(mixed $prop): mixed {
-		return match(true) {
+		return match (true) {
 			is_a($prop, Stringable::class) => strval($prop),
 			is_a($prop, Value::class) => self::exportValue($prop),
 			is_array($prop) => array_map(self::exportValueProp(...), $prop),

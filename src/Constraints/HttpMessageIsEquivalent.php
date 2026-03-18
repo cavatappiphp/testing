@@ -10,8 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use SebastianBergmann\Comparator\ComparisonFailure;
 
 class HttpMessageIsEquivalent extends Constraint {
-	public function __construct(private RequestInterface|ResponseInterface $expected) {
-	}
+	public function __construct(private RequestInterface|ResponseInterface $expected) {}
 
 	public function toString(): string {
 		return 'two HTTP messages are equivalent';
@@ -66,7 +65,7 @@ class HttpMessageIsEquivalent extends Constraint {
 				$other,
 				$this->exporter()->export($expectedData),
 				$this->exporter()->export($actualData),
-				'Failed asserting that two HTTP messages are equivalent.'
+				'Failed asserting that two HTTP messages are equivalent.',
 			);
 		}
 

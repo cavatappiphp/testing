@@ -15,8 +15,7 @@ class UuidChecker extends Constraint {
 	/**
 	 * @param UuidInterface $expected Events to check against.
 	 */
-	public function __construct(private UuidInterface $expected) {
-	}
+	public function __construct(private UuidInterface $expected) {}
 
 	public function toString(): string {
 		return 'two UUIDs are equal';
@@ -41,7 +40,7 @@ class UuidChecker extends Constraint {
 				$other,
 				Exporter::export($this->expected),
 				Exporter::export($other),
-				'Failed asserting that two UUIDs are equal.'
+				'Failed asserting that two UUIDs are equal.',
 			);
 		}
 

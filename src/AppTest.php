@@ -5,7 +5,7 @@ namespace Cavatappi\Test;
 use Cavatappi\Test\BasicApp\App;
 
 class AppTest extends TestCase {
-	const INCLUDED_MODELS = [];
+	public const INCLUDED_MODELS = [];
 
 	protected App $app;
 
@@ -15,5 +15,21 @@ class AppTest extends TestCase {
 
 	protected function createMockServices(): array {
 		return [];
+	}
+
+	protected function assertCompleteDependencyMap(bool $skipContainers = false): void {
+		$needs = $this->app->getUnmetDependencies($skipContainers);
+
+		$output = '';
+		foreach ($needs as $dep => $services) {
+			$output .= "• {$dep} required by:\n";
+			$output .= implode("\n", array_map(fn($srv) => "  - {$srv}", $services));
+			$output .= "\n";
+		}
+
+		$this->assertEmpty(
+			$needs,
+			"The following interfaces are missing implementations or test stubs:\n" . $output,
+		);
 	}
 }

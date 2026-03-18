@@ -14,9 +14,9 @@ class CoverageReport {
 		$tests = [
 			[
 				'type' => 'line',
-				'score' =>
-					$report->getReport()->numberOfExecutedLines() / $report->getReport()->numberOfExecutableLines(),
-				'fileFilter' => fn($file) => ($file->numberOfExecutableLines() - $file->numberOfExecutedLines()) > 0
+				'score'
+					=> $report->getReport()->numberOfExecutedLines() / $report->getReport()->numberOfExecutableLines(),
+				'fileFilter' => fn($file) => ($file->numberOfExecutableLines() - $file->numberOfExecutedLines()) > 0,
 			],
 		];
 
@@ -43,7 +43,7 @@ class CoverageReport {
 		foreach (
 			self::getProblemFiles(
 				$report->getReport(),
-				$fileFilter
+				$fileFilter,
 			) as $file
 		) {
 			echo '  ' . \substr($file->pathAsString(), $baseDirCharCount) . "\n";

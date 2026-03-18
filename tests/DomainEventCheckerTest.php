@@ -28,8 +28,7 @@ final class TestDomainEvent implements DomainEvent {
 		public readonly ?UuidInterface $processId = null,
 		?UuidInterface $id = null,
 		?DateTimeInterface $timestamp = null,
-	)
-	{
+	) {
 		$this->id = $id ?? UuidFactory::date();
 		$this->timestamp = $timestamp ?? new DateTimeImmutable();
 	}

@@ -19,8 +19,7 @@ class DomainEventChecker extends Constraint {
 	 * @param array<DomainEvent> $expectedEvents Events to check against.
 	 * @param boolean            $checkProcess   True if the events should be checked for the same processId.
 	 */
-	public function __construct(private array $expectedEvents, private bool $checkProcess = false) {
-	}
+	public function __construct(private array $expectedEvents, private bool $checkProcess = false) {}
 
 	/**
 	 * The current expected event.
@@ -81,7 +80,7 @@ class DomainEventChecker extends Constraint {
 				$other,
 				Exporter::export(ValueObjectChecker::exportValue($expectedComparison)),
 				Exporter::export(ValueObjectChecker::exportValue($actualComparison)),
-				isset($this->expected) ? 'Failed asserting that two Events are equivalent.' : 'Event was not expected.'
+				isset($this->expected) ? 'Failed asserting that two Events are equivalent.' : 'Event was not expected.',
 			);
 		}
 

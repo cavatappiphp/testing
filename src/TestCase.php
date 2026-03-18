@@ -27,7 +27,7 @@ class TestCase extends PHPUnitTestCase {
 	}
 
 	public static function valueObjectEquals(Value $expected): Constraint {
-		return new ValueObjectChecker($expected,);
+		return new ValueObjectChecker($expected, );
 	}
 
 	public static function assertValueObjectEquals(Value $expected, ?object $actual, string $message = ''): void {

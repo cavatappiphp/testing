@@ -9,9 +9,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class ModelTest extends AppTest {
-	const INCLUDED_MODELS = [];
+	public const INCLUDED_MODELS = [];
 
-	protected EventDispatcherInterface & MockObject $mockEventBus;
+	protected EventDispatcherInterface&MockObject $mockEventBus;
 
 	protected function setUp(): void {
 		$this->mockEventBus = $this->createMock(EventDispatcherInterface::class);
@@ -28,11 +28,11 @@ class ModelTest extends AppTest {
 	}
 
 	protected function expectEvents(array $events, bool $checkProcess = false) {
-		$this->mockEventBus->
-			expects($this->exactly(\count($events)))->
-			method('dispatch')->
-			with(new DomainEventChecker($events, $checkProcess))->
-			willReturnCallback(fn($event) => $this->app->container->get(Dispatcher::class)->dispatch($event));
+		$this->mockEventBus
+			->expects($this->exactly(\count($events)))
+			->method('dispatch')
+			->with(new DomainEventChecker($events, $checkProcess))
+			->willReturnCallback(fn($event) => $this->app->container->get(Dispatcher::class)->dispatch($event));
 	}
 
 	protected function expectNoEvents() {
